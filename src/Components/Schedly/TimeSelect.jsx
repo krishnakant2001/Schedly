@@ -5,29 +5,33 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import dayjs from 'dayjs';
 
 
-const TimeSelect = () => {
-  const [age, setAge] = useState("");
+const TimeSelect = ({selectedDate}) => {
+  const [slot, setSlot] = useState("");
 
   const handleChange = (event) => {
-    setAge(event.target.value);
+    setSlot(event.target.value);
   };
 
+  const isFriday = selectedDate && dayjs(selectedDate).day() === 5;
+
   return (
-    <Box sx={{ minWidth: 120 }}>
+    <Box sx={{ minWidth: 230 }}>
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Age</InputLabel>
+        <InputLabel id="demo-simple-select-label">Time Slot</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={age}
-          label="Age"
+          value={slot}
+          label="Time Slot"
           onChange={handleChange}
         >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+          <MenuItem value={1} disabled={isFriday}>
+            12:00 PM to 12:30 PM
+          </MenuItem>
+          <MenuItem value={2}>6:30 PM to 7:00 PM</MenuItem>
         </Select>
       </FormControl>
     </Box>

@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { Fab, TextField } from "@mui/material";
 import SchedlyDatePicker from "./DatePicker";
 import TimeSelect from "./TimeSelect";
+import RippleButton from "./RippleButton";
 // import googleLogo from "../assets/google.png";
 
 const Container = styled.div`
@@ -34,53 +35,37 @@ const Title = styled.div`
   font-weight: 400;
   padding: 2px;
 `;
-const Subtitle = styled.div`
-  width: 80%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  color: #545454;
-  margin-bottom: 12px;
-`;
-const Google = styled.button`
-  width: 60%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 12px;
-  font-size: 16px;
-  font-weight: 400;
-  color: #333;
-  background-color: transparent;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 50px;
-  &:hover {
-    background-color: #dbdbdb;
-    cursor: pointer;
-    border: 1px solid #9a9a9a;
-  }
-`;
-const Img = styled.img`
-  width: 24px;
-`;
-const LineSection = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 12px;
-  margin: 8px 0;
-`;
-const Line = styled.hr`
-  width: 32%;
-  margin-top: 2px;
-  border: 1px solid #e9e9e9;
-`;
-const OR = styled.div`
-  color: #c2c2c2;
-`;
+// const Subtitle = styled.div`
+//   width: 80%;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   gap: 4px;
+//   color: #545454;
+//   margin-bottom: 12px;
+// `;
+// const Google = styled.button`
+//   width: 60%;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   gap: 12px;
+//   font-size: 16px;
+//   font-weight: 400;
+//   color: #333;
+//   background-color: transparent;
+//   padding: 12px;
+//   border: 1px solid #ccc;
+//   border-radius: 50px;
+//   &:hover {
+//     background-color: #dbdbdb;
+//     cursor: pointer;
+//     border: 1px solid #9a9a9a;
+//   }
+// `;
+// const Img = styled.img`
+//   width: 24px;
+// `;
 const Form = styled.form`
   width: 100%;
   display: flex;
@@ -89,19 +74,23 @@ const Form = styled.form`
   align-items: center;
   gap: 12px;
 `;
-const Input = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  width: 80%;
-  /* border: 1px solid black; */
-`;
-const Hinput = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
 
+const ScheduleSection = styled.div`
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+
+`
+const Btns = styled.div`
+    display: flex;
+    width: 80%;
+    justify-content: space-between;
+    align-items: center;
+
+`;
 const Button = styled.button`
   width: 36%;
   font-size: 16px;
@@ -115,91 +104,35 @@ const Button = styled.button`
   transition: all 0.3s ease;
   margin-top: 12px;
   &:hover {
-    background-color: #dbdbdb;
-    cursor: pointer;
-    border: 1px solid #9a9a9a;
-  }
-`;
-const Link = styled.div`
-  color: #333;
-  &:hover {
-    text-decoration: underline;
-    cursor: pointer;
-  }
-`;
+      background-color: #dbdbdb;
+      cursor: pointer;
+      border: 1px solid #9a9a9a;
+    }
+    `;
+
+
 
 const MeetSchedule = () => {
-  const [cred, setCred] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    lkdUrl: "",
-  });
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-
-    setCred((prev) => {
-      console.log(prev);
-      return { ...prev, [name]: value };
-    });
-  };
+  const [selectedDate, setSelectedDate] = useState(null);
   const handleSubmit = (event) => {
     event.preventDefault();
-    // console.log(event);
-
-    console.log("Form Submitted");
-    console.log("FirstName: ", cred.firstName);
-    console.log("LastName: ", cred.lastName);
-    console.log("Email: ", cred.email);
-    console.log("LinkdIn URL: ", cred.lkdUrl);
   };
   return (
     <Container>
       <Wrapper>
-        <Icon>{/* <BlurOnIcon fontSize="large" /> */}</Icon>
-        <Title>Sign In</Title>
+        {/* <Icon><BlurOnIcon fontSize="large" /></Icon> */}
         <Form onSubmit={handleSubmit}>
-          <Input>
-            <Hinput>
-              <TextField
-                name="firstName"
-                id="fname"
-                label="First name"
-                variant="outlined"
-                value={cred.firstName}
-                onChange={handleChange}
-              />
-              <TextField
-                name="lastName"
-                id="lname"
-                label="Last name"
-                variant="outlined"
-                value={cred.lastName}
-                onChange={handleChange}
-              />
-            </Hinput>
-            <TextField
-              name="email"
-              id="email"
-              label="Email address"
-              type="email"
-              variant="outlined"
-              value={cred.email}
-              onChange={handleChange}
+          <ScheduleSection>
+            <SchedlyDatePicker
+              selectedDate={selectedDate}
+              setSelectedDate={setSelectedDate}
             />
-            <TextField
-              name="lkdUrl"
-              id="lkdUrl"
-              label="LinkedIn Profile URL"
-              type="url"
-              variant="outlined"
-              value={cred.lkdUrl}
-              onChange={handleChange}
-            />
-          </Input>
-          <SchedlyDatePicker/>
-          <TimeSelect/>
-          <Fab variant="extended">Meet Schedule</Fab>
+            <TimeSelect selectedDate={selectedDate} />
+          </ScheduleSection>
+          <Btns>
+            <Button>Previous</Button>
+            <RippleButton children={"Continue"}/>
+          </Btns>
         </Form>
       </Wrapper>
     </Container>
