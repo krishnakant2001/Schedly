@@ -8,11 +8,12 @@ import Select from "@mui/material/Select";
 import dayjs from 'dayjs';
 
 
-const TimeSelect = ({selectedDate}) => {
+const TimeSelect = ({ selectedDate, setSelectedTime }) => {
   const [slot, setSlot] = useState("");
 
   const handleChange = (event) => {
     setSlot(event.target.value);
+    setSelectedTime(event.target.value);
   };
 
   const isFriday = selectedDate && dayjs(selectedDate).day() === 5;
@@ -28,14 +29,14 @@ const TimeSelect = ({selectedDate}) => {
           label="Time Slot"
           onChange={handleChange}
         >
-          <MenuItem value={1} disabled={isFriday}>
+          <MenuItem value={"12:00 PM to 12:30 PM"} disabled={isFriday}>
             12:00 PM to 12:30 PM
           </MenuItem>
-          <MenuItem value={2}>6:30 PM to 7:00 PM</MenuItem>
+          <MenuItem value={"6:30 PM to 7:00 PM"}>6:30 PM to 7:00 PM</MenuItem>
         </Select>
       </FormControl>
     </Box>
   );
-}
+};
 
 export default TimeSelect

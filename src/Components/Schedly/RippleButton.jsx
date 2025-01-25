@@ -39,7 +39,7 @@ const Button = styled.button`
   }
 `;
 
-const RippleButton = ({ children }) => {
+const RippleButton = ({ onClickButton, children }) => {
   const createRipple = (event) => {
     const button = event.currentTarget;
 
@@ -66,7 +66,16 @@ const RippleButton = ({ children }) => {
     });
   };
 
-  return <Button onClick={createRipple}>{children}</Button>;
+  return (
+    <Button
+      onClick={(event) => {
+        createRipple(event);
+        onClickButton();
+      }}
+    >
+      {children}
+    </Button>
+  );
 };
 
 export default RippleButton;

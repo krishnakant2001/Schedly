@@ -1,5 +1,5 @@
 import { TextField } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -22,26 +22,11 @@ const Wrapper = styled.div`
   padding: 4px;
 `;
 
-const Title = styled.div`
-  font-size: 36px;
-  font-weight: 400;
-  padding: 2px;
-`;
-
-const Section = styled.form`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 12px;
-`;
 const Input = styled.div`
   display: flex;
   flex-direction: column;
   gap: 18px;
   width: 80%;
-  /* border: 1px solid black; */
 `;
 
 const Hinput = styled.div`
@@ -69,37 +54,14 @@ const Button = styled.button`
   }
 `;
 
-const Register = () => {
-  const [cred, setCred] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    lkdUrl: "",
-  });
-
+const Register = ({registerData, onRegisterChange}) => {
   const handleChange = (event) => {
     const { name, value } = event.target;
-
-    setCred((prev) => {
-      console.log(prev);
-      return { ...prev, [name]: value };
-    });
-  };
-  const handleClick = (event) => {
-    event.preventDefault();
-    // console.log(event);
-
-    console.log("Form Submitted");
-    console.log("FirstName: ", cred.firstName);
-    console.log("LastName: ", cred.lastName);
-    console.log("Email: ", cred.email);
-    console.log("LinkdIn URL: ", cred.lkdUrl);
+    onRegisterChange({ [name]: value });
   };
   return (
     <Container>
       <Wrapper>
-        {/* <Title>Sign In</Title> */}
-        <Section onClick={handleClick}>
           <Input>
             <Hinput>
               <TextField
@@ -107,7 +69,7 @@ const Register = () => {
                 id="fname"
                 label="First name"
                 variant="outlined"
-                value={cred.firstName}
+                value={registerData.firstName}
                 onChange={handleChange}
               />
               <TextField
@@ -115,7 +77,7 @@ const Register = () => {
                 id="lname"
                 label="Last name"
                 variant="outlined"
-                value={cred.lastName}
+                value={registerData.lastName}
                 onChange={handleChange}
               />
             </Hinput>
@@ -125,21 +87,20 @@ const Register = () => {
               label="Email address"
               type="email"
               variant="outlined"
-              value={cred.email}
+              value={registerData.email}
               onChange={handleChange}
             />
             <TextField
-              name="lkdUrl"
-              id="lkdUrl"
+              name="linkdinUrl"
+              id="linkdinUrl"
               label="LinkedIn Profile URL"
               type="url"
               variant="outlined"
-              value={cred.lkdUrl}
+              value={registerData.lkdUrl}
               onChange={handleChange}
             />
           </Input>
-          <Button onClick={handleClick}>Next</Button>
-        </Section>
+          <Button>Next</Button>
       </Wrapper>
     </Container>
   );
