@@ -62,45 +62,48 @@ const Register = ({registerData, onRegisterChange}) => {
   return (
     <Container>
       <Wrapper>
-          <Input>
-            <Hinput>
-              <TextField
-                name="firstName"
-                id="fname"
-                label="First name"
-                variant="outlined"
-                value={registerData.firstName}
-                onChange={handleChange}
-              />
-              <TextField
-                name="lastName"
-                id="lname"
-                label="Last name"
-                variant="outlined"
-                value={registerData.lastName}
-                onChange={handleChange}
-              />
-            </Hinput>
+        <Input>
+          <Hinput>
             <TextField
-              name="email"
-              id="email"
-              label="Email address"
-              type="email"
+              name="firstName"
+              id="fname"
+              label="First name"
+              required
               variant="outlined"
-              value={registerData.email}
+              value={registerData.firstName}
               onChange={handleChange}
             />
             <TextField
-              name="linkdinUrl"
-              id="linkdinUrl"
-              label="LinkedIn Profile URL"
-              type="url"
+              name="lastName"
+              id="lname"
+              label="Last name"
               variant="outlined"
-              value={registerData.lkdUrl}
+              value={registerData.lastName}
               onChange={handleChange}
             />
-          </Input>
-          <Button>Next</Button>
+          </Hinput>
+          <TextField
+            name="email"
+            id="email"
+            label="Email address"
+            type="email"
+            required
+            variant="outlined"
+            value={registerData.email}
+            onChange={handleChange}
+          />
+          <TextField
+            name="linkdinUrl"
+            id="linkdinUrl"
+            label="LinkedIn Profile URL"
+            type="url"
+            required
+            variant="outlined"
+            value={registerData.lkdUrl}
+            onChange={handleChange}
+          />
+        </Input>
+        <Button>Next</Button>
       </Wrapper>
     </Container>
   );
