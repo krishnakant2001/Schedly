@@ -20,9 +20,6 @@ const Scheduler = () => {
   const handleMeetScheduleChange = (updatedScheduleData) => {
     setSchedData((prevData) => ({ ...prevData, ...updatedScheduleData }));
   };
-  const handleContinue = () => {
-    console.log(SchedData);
-  };
   const showConfimationHandler = () => {
     setConfirmationMsg(true);
   };
