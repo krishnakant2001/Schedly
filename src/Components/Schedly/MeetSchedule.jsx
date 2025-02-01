@@ -3,6 +3,7 @@ import styled from "styled-components";
 import SchedlyDatePicker from "./DatePicker";
 import TimeSelect from "./TimeSelect";
 import RippleButton from "./RippleButton";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   height: 100vh;
@@ -58,12 +59,13 @@ const Button = styled.button`
 `;
 
 const MeetSchedule = ({ scheduleData, onScheduleChange, onContinue }) => {
-  const handleDateChange = (date) => { 
+  const handleDateChange = (date) => {
     onScheduleChange({ selectedDate: date });
   };
   const handleTimeChange = (timeSlot) => {
     onScheduleChange({ selectedTime: timeSlot });
   };
+  const navigate = useNavigate();
   return (
     <Container>
       <Wrapper>
@@ -78,7 +80,7 @@ const MeetSchedule = ({ scheduleData, onScheduleChange, onContinue }) => {
           />
         </ScheduleSection>
         <Btns>
-          <Button>Previous</Button>
+          <Button onClick={() => navigate('/')}>Previous</Button>
           <RippleButton onClickButton={onContinue} children={"Continue"} />
         </Btns>
       </Wrapper>

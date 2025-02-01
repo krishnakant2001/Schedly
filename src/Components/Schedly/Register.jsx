@@ -54,7 +54,7 @@ const Button = styled.button`
   }
 `;
 
-const Register = ({registerData, onRegisterChange}) => {
+const Register = ({registerData, onRegisterChange, onNext}) => {
   const handleChange = (event) => {
     const { name, value } = event.target;
     onRegisterChange({ [name]: value });
@@ -103,7 +103,7 @@ const Register = ({registerData, onRegisterChange}) => {
             onChange={handleChange}
           />
         </Input>
-        <Button>Next</Button>
+        <Button onClick={onNext}>Next</Button>
       </Wrapper>
     </Container>
   );

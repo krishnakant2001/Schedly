@@ -1,4 +1,10 @@
 import React, { useState } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useNavigate,
+} from "react-router-dom";
 import Register from "../Schedly/Register";
 import MeetSchedule from "../Schedly/MeetSchedule";
 import ScheduleConfirm from "../Schedly/ScheduleConfirm";
@@ -14,38 +20,68 @@ const Scheduler = () => {
   });
   const [ConfirmationMsg, setConfirmationMsg] = useState(false);
 
+  return (
+    <Router>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <RegisterStep SchedData={SchedData} setSchedData={setSchedData} />
+          }
+        />
+        <Route
+          path="/schedule"
+          element={
+            <MeetScheduleStep
+              SchedData={SchedData}
+              setSchedData={setSchedData}
+              setConfirmationMsg={setConfirmationMsg}
+            />
+          }
+        />
+        <Route
+          path="/confirmation"
+          element={ConfirmationMsg && <ScheduleConfirm data={SchedData} />}
+        />
+      </Routes>
+    </Router>
+  );
+};
+
+const RegisterStep = ({ SchedData, setSchedData }) => {
+  const navigate = useNavigate();
+
   const handleRegisterChange = (updatedRegisterData) => {
     setSchedData((prevData) => ({ ...prevData, ...updatedRegisterData }));
   };
+
+  return (
+    <Register
+      registerData={SchedData}
+      onRegisterChange={handleRegisterChange}
+      onNext={() => navigate("/schedule")}
+    />
+  );
+};
+
+const MeetScheduleStep = ({ SchedData, setSchedData, setConfirmationMsg }) => {
+  const navigate = useNavigate();
+
   const handleMeetScheduleChange = (updatedScheduleData) => {
     setSchedData((prevData) => ({ ...prevData, ...updatedScheduleData }));
   };
-  const showConfimationHandler = () => {
+
+  const showConfirmation = () => {
     setConfirmationMsg(true);
-  };
-  const hideConfirmationHandler = () => {
-    setConfirmationMsg(false);
+    navigate("/confirmation");
   };
 
   return (
-    <div>
-      <Register
-        registerData={SchedData}
-        onRegisterChange={handleRegisterChange}
-      />
-      <MeetSchedule
-        scheduleData={SchedData}
-        onScheduleChange={handleMeetScheduleChange}
-        onContinue={showConfimationHandler}
-        // onShowConfirmation={}
-      />
-      {ConfirmationMsg && (
-        <ScheduleConfirm
-          data={SchedData}
-          onCloseConfirmation={hideConfirmationHandler}
-        />
-      )}
-    </div>
+    <MeetSchedule
+      scheduleData={SchedData}
+      onScheduleChange={handleMeetScheduleChange}
+      onContinue={showConfirmation}
+    />
   );
 };
 
